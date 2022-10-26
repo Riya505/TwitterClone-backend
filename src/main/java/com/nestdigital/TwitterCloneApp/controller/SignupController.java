@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class SignupController {
     @Autowired
@@ -19,5 +21,10 @@ public class SignupController {
         System.out.println(signup.toString());
         dao.save(signup);
         return "{status:'success'}";
+    }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/login",consumes = "application/json",produces = "application/json")
+    public List<SignupModel> Login(@RequestBody SignupModel signup){
+        return (List<SignupModel>) dao.Signup(signup.getEmail(),signup.getPassword());
     }
 }
